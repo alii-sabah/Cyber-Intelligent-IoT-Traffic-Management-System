@@ -17,13 +17,21 @@ The system operates as a closed-loop cyber-physical framework split into three d
 
 Instead of rigid static timers, traffic lane activation probability is determined dynamically using an algorithmic model derived from natural ant foraging behavior. The probability ($Prob_i$) for each lane $i$ is calculated using the following mathematical logic:
 
-$$Prob_i = \frac{(\tau_i^{\alpha}) \times (\eta_i^{\beta})}{\sum_{j=1}^{4} (\tau_j^{\alpha}) \times (\eta_j^{\beta})}$$
+## 🐜 Intelligent Optimization (ACO Logic)
+
+Instead of rigid static timers, traffic lane activation probability is determined dynamically using an algorithmic model derived from natural ant foraging behavior. The probability for each lane is calculated using the following logic:
+
+
+                  (Pheromone_i ^ alpha) * (Heuristic_i ^ beta)
+Prob(Lane i) = --------------------------------------------------
+                Sum [j=1 to 4] ((Pheromone_j ^ alpha) * (Heuristic_j ^ beta))
+
 
 Where:
-*   $\tau_i$: **Pheromone Level** (Cumulated historic demand/congestion data on Lane $i$).
-*   $\eta_i$: **Heuristic Value** (Immediate current vision: Calculated from real-time vehicle density + lane waiting timers).
-*   $\alpha = 1.0$: Weight parameter prioritizing historical traffic memory.
-*   $\beta = 2.0$: Weight parameter prioritizing active, immediate congestion patterns.
+​Pheromone (τ): Historic demand and accumulated congestion memory on the lane.  
+​Heuristic (η): Immediate current vision, calculated from real-time vehicle density + lane waiting timers.  
+​alpha (α) = 1.0: Weight parameter prioritizing historical traffic memory.  
+​beta (β) = 2.0: Weight parameter prioritizing active, immediate congestion patterns.  
 
 ### Safety-First State Machine
 To guarantee smooth transitions and absolute physical safety:
